@@ -1,0 +1,34 @@
+{
+  "name": "rummage",
+  "version": "0.0.0",
+  "description": "stream friendly JSON.stringify",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "keywords": [
+    "json",
+    "stringify",
+    "stream",
+    "JSON.stringify"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "from2": "^2.3.0",
+    "quote-stream": "^1.0.2",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "concat-stream": "^1.6.0",
+    "tape": "^4.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callum/rummage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/callum/rummage/issues"
+  },
+  "homepage": "https://github.com/callum/rummage#readme",
+  "author": "Callum <callum@callumj.uk> (http://callumj.uk/)"
+}
