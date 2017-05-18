@@ -27,7 +27,9 @@ rummage({
 
 ## special types
 
-By default stream data is concatenated to a string, as per the above example. However, there are special instructions to treat streams as arrays, objects or raw JSON. Imagine you want to create an array of newline-delimited messages from a file:
+By default stream data is concatenated and output as a string, as per the above example. However, there are special instructions to treat streams as arrays, objects or raw JSON.
+
+Imagine you want to retrieve a list of newline-delimited messages from a file and output them as JSON:
 
 ```js
 var fs = require('fs')
@@ -101,7 +103,7 @@ function messages () {
 
 Return a new readable `stream` of JSON from `value`
 
-If a stream is encountered within `value`, or `value` is itself a stream, its data will be collected into a quoted string by default. This behaviour can be modified using special types, which are:
+If a stream is encountered within `value`, or `value` is itself a stream, its data will be concatenated and output as a string by default. This behaviour can be overridden using special types, which are:
 
 - `_string` - output `value` as a string (default)
 - `_json` - output `value` as raw JSON
