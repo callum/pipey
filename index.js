@@ -89,32 +89,41 @@ function walk (value, cb) {
 
 function array () {
   var first = true
-  return through.obj(function (chunk, enc, cb) {
-    if (first) this.push(BGN_ARR)
-    else this.push(SEP)
-    first = false
+  var ts = through.obj(wrt, end)
+  ts.push(BGN_ARR)
+  return ts
+
+  function wrt (chunk, enc, cb) {
     if (!isValid(chunk)) chunk = null
+    if (!first) this.push(SEP)
+    first = false
     write.call(this, chunk, null, cb)
-  }, function (cb) {
+  }
+
+  function end (cb) {
     this.push(END_ARR)
     cb()
-  })
+  }
 }
 
 function object () {
   var first = true
-  return through.obj(function (chunk, enc, cb) {
-    var self = this
+  var ts = through.obj(wrt, end)
+  ts.push(BGN_OBJ)
+  return ts
+
+  function wrt (chunk, enc, cb) {
     if (!isValid(chunk[1])) return cb()
-    if (first) self.push(BGN_OBJ)
-    else self.push(SEP)
+    if (!first) this.push(SEP)
     first = false
-    self.push(JSON.stringify(String(chunk[0])) + ':')
-    write.call(self, chunk[1], null, cb)
-  }, function (cb) {
+    this.push(JSON.stringify(String(chunk[0])) + ':')
+    write.call(this, chunk[1], null, cb)
+  }
+
+  function end (cb) {
     this.push(END_OBJ)
     cb()
-  })
+  }
 }
 
 function isType (key) {

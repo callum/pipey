@@ -142,6 +142,24 @@ test('stringify', function (t) {
   }))
 })
 
+test('empty array', function (t) {
+  t.plan(1)
+  var rs = from.obj()
+  rs.push(null)
+  rummage({ _array: rs }).pipe(concat(function (res) {
+    t.equal(res.toString('utf8'), '[]\n')
+  }))
+})
+
+test('empty object', function (t) {
+  t.plan(1)
+  var rs = from.obj()
+  rs.push(null)
+  rummage({ _object: rs }).pipe(concat(function (res) {
+    t.equal(res.toString('utf8'), '{}\n')
+  }))
+})
+
 function array () {
   var rs = from.obj()
   rs.push('foo')
