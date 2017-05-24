@@ -6,22 +6,22 @@ var rummage = require('./')
 test('stringify', function (t) {
   t.plan(12)
   rummage('foo "bar" baz').pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), '"foo \\"bar\\" baz"')
+    t.equal(res.toString('utf8'), '"foo \\"bar\\" baz"\n')
   }))
   rummage(0).pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), '0')
+    t.equal(res.toString('utf8'), '0\n')
   }))
   rummage(true).pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), 'true')
+    t.equal(res.toString('utf8'), 'true\n')
   }))
   rummage(new Date(2017, 0, 1)).pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), '"2017-01-01T00:00:00.000Z"')
+    t.equal(res.toString('utf8'), '"2017-01-01T00:00:00.000Z"\n')
   }))
   rummage(undefined).pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), '')
+    t.equal(res.toString('utf8'), '\n')
   }))
   rummage(function () {}).pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), '')
+    t.equal(res.toString('utf8'), '\n')
   }))
   rummage([function () {}]).pipe(concat(function (res) {
     t.equal(res.toString('utf8'), '[null]\n')
@@ -30,17 +30,17 @@ test('stringify', function (t) {
     t.equal(res.toString('utf8'), '["foo","bar","baz"]\n')
   }))
   rummage('{"foo":"foo","bar":"bar","baz":"baz"}').pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), '"{\\"foo\\":\\"foo\\",\\"bar\\":\\"bar\\",\\"baz\\":\\"baz\\"}"')
+    t.equal(res.toString('utf8'), '"{\\"foo\\":\\"foo\\",\\"bar\\":\\"bar\\",\\"baz\\":\\"baz\\"}"\n')
   }))
   rummage({
     toJSON: function () {
       return 'foo "bar" baz'
     }
   }).pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), '"foo \\"bar\\" baz"')
+    t.equal(res.toString('utf8'), '"foo \\"bar\\" baz"\n')
   }))
   rummage(string()).pipe(concat(function (res) {
-    t.equal(res.toString('utf8'), '"foo \\"bar\\" baz"')
+    t.equal(res.toString('utf8'), '"foo \\"bar\\" baz"\n')
   }))
   rummage({
     str: 'foo "bar" baz',

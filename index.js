@@ -12,10 +12,12 @@ module.exports = rummage
 
 function rummage (value) {
   return from(function (size, cb) {
-    write.call(this, value, null, done)
+    var self = this
+    write.call(self, value, null, done)
 
     function done (err) {
       if (err) return cb(err)
+      self.push('\n')
       cb(null, null)
     }
   })
@@ -80,7 +82,6 @@ function walk (value, cb) {
     } else {
       if (arr) self.push(END_ARR)
       else self.push(END_OBJ)
-      self.push('\n')
       cb()
     }
   }
