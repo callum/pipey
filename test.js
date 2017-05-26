@@ -44,7 +44,6 @@ test('stringify', function (t) {
   }))
   rummage({
     str: 'foo "bar" baz',
-    str2: { _string: 'foo "bar" baz' },
     num: 0,
     bool: true,
     date: new Date(2017, 0, 1),
@@ -60,7 +59,6 @@ test('stringify', function (t) {
       }
     },
     json: '{"foo":"foo","bar":"bar","baz":"baz"}',
-    json2: { _json: '{"foo":"foo","bar":"bar","baz":"baz"}' },
     to_json: {
       foo: 'bar',
       toJSON: function () {
@@ -77,7 +75,6 @@ test('stringify', function (t) {
   }).pipe(concat(function (res) {
     t.deepEqual(JSON.parse(res.toString('utf8')), {
       str: 'foo "bar" baz',
-      str2: 'foo "bar" baz',
       num: 0,
       bool: true,
       date: '2017-01-01T00:00:00.000Z',
@@ -91,11 +88,6 @@ test('stringify', function (t) {
         }
       },
       json: '{"foo":"foo","bar":"bar","baz":"baz"}',
-      json2: {
-        foo: 'foo',
-        bar: 'bar',
-        baz: 'baz'
-      },
       to_json: 'foo "bar" baz',
       str_stream: 'foo "bar" baz',
       str_stream2: 'foo "bar" baz',
